@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastLap AI | F1 Lap Time Prediction</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-black text-white font-sans">
+
+<!-- NAVBAR -->
+<nav class="fixed top-0 w-full bg-black border-b border-red-600 z-50">
+    <div class="container mx-auto px-6 py-4 flex justify-between">
+        <span class="text-xl font-bold text-red-600">FastLap AI</span>
+        <div class="space-x-6">
+            <a href="#about" class="hover:text-red-500">About</a>
+            <a href="#dataset" class="hover:text-red-500">Dataset</a>
+            <a href="#model" class="hover:text-red-500">Model</a>
+            <a href="#predict" class="hover:text-red-500">Predict</a>
+            <a href="#results" class="hover:text-red-500">Results</a>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="min-h-screen flex items-center justify-center pt-20 bg-gradient-to-b from-black to-gray-900">
+    <div class="text-center">
+        <h1 class="text-5xl font-bold text-red-600 mb-4">FastLap AI</h1>
+        <p class="text-xl text-gray-300">Formula 1 Lap Time Prediction using Machine Learning</p>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="py-20 bg-gray-900">
+    <div class="container mx-auto px-6 max-w-4xl">
+        <h2 class="text-3xl font-bold text-red-500 mb-6">About</h2>
+        <p class="text-gray-300 text-lg">
+            FastLap AI is a machine learning project that predicts Formula 1 lap times
+            using historical race data. The project focuses on understanding lap-time
+            behavior and evaluating regression performance on real-world sports data.
+        </p>
+    </div>
+</section>
+
+<!-- DATASET -->
+<section id="dataset" class="py-20 bg-black">
+    <div class="container mx-auto px-6 max-w-4xl">
+        <h2 class="text-3xl font-bold text-red-500 mb-6">Dataset</h2>
+        <p class="text-gray-300 text-lg">
+            The dataset is sourced from the Formula 1 World Championship dataset (Kaggle).
+            It includes lap-level information such as lap number, race position, and lap
+            time recorded in milliseconds.
+        </p>
+    </div>
+</section>
+
+<!-- MODEL -->
+<section id="model" class="py-20 bg-gray-900">
+    <div class="container mx-auto px-6 max-w-4xl">
+        <h2 class="text-3xl font-bold text-red-500 mb-6">Model</h2>
+        <p class="text-gray-300 text-lg mb-4">
+            A Linear Regression model was used as a baseline to predict lap times based on:
+        </p>
+        <ul class="list-disc list-inside text-gray-300">
+            <li>Lap Number</li>
+            <li>Race Position</li>
+        </ul>
+        <p class="text-gray-300 mt-4">
+            The model achieved an MAE of ~11.5 seconds, highlighting the complexity
+            of racing dynamics and real-world noise.
+        </p>
+    </div>
+</section>
+
+<!-- PREDICT -->
+<section id="predict" class="py-20 bg-black">
+    <div class="container mx-auto px-6 max-w-xl">
+        <h2 class="text-3xl font-bold text-red-500 mb-6 text-center">Predict</h2>
+
+        <form id="predictForm" class="bg-gray-900 p-6 rounded-lg border border-red-600">
+            <label class="block mb-2">Lap Number</label>
+            <input id="lap" type="number" class="w-full mb-4 p-2 text-black rounded" required>
+
+            <label class="block mb-2">Race Position</label>
+            <input id="pos" type="number" class="w-full mb-4 p-2 text-black rounded" required>
+
+            <button class="w-full bg-red-600 py-2 rounded font-bold hover:bg-red-700">
+                Predict Lap Time
+            </button>
+
+            <p id="output" class="mt-4 text-center text-red-400 font-bold"></p>
+        </form>
+    </div>
+</section>
+
+<!-- RESULTS + GRAPHS -->
+<section id="results" class="py-20 bg-gray-900">
+    <div class="container mx-auto px-6">
+        <h2 class="text-3xl font-bold text-red-500 mb-12 text-center">Results & Visualizations</h2>
+
+        <div class="grid md:grid-cols-2 gap-10">
+
+            <div class="border border-red-600 p-4 rounded">
+                <img src="Figure_1.png" class="rounded">
+                <p class="text-center mt-2 text-gray-400">
+                    Figure 1: Actual vs Predicted Lap Times
+                </p>
+            </div>
+
+            <div class="border border-red-600 p-4 rounded">
+                <img src="Figure_2.png" class="rounded">
+                <p class="text-center mt-2 text-gray-400">
+                    Figure 2: Distribution of Lap Times
+                </p>
+            </div>
+
+            <div class="border border-red-600 p-4 rounded">
+                <img src="Figure_3.png" class="rounded">
+                <p class="text-center mt-2 text-gray-400">
+                    Figure 3: Lap Number vs Lap Time
+                </p>
+            </div>
+
+            <div class="border border-red-600 p-4 rounded">
+                <img src="Figure_4.png" class="rounded">
+                <p class="text-center mt-2 text-gray-400">
+                    Figure 4: Position vs Lap Time
+                </p>
+            </div>
+
+            <div class="md:col-span-2 border border-red-600 p-4 rounded">
+                <img src="Figure_5.png" class="rounded mx-auto">
+                <p class="text-center mt-2 text-gray-400">
+                    Figure 5: Model Prediction Trend
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-black border-t border-red-600 py-6 text-center text-gray-500">
+    © 2025 FastLap AI | Built with ❤️ for Formula 1
+</footer>
+
+<script>
+document.getElementById("predictForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    let lap = document.getElementById("lap").value;
+    let pos = document.getElementById("pos").value;
+
+    let prediction = (85 + lap*0.15 + pos*0.3).toFixed(2);
+    document.getElementById("output").innerText =
+        "Predicted Lap Time: " + prediction + " seconds";
+});
+</script>
+
+</body>
+</html>
